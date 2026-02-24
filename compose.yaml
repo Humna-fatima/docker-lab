@@ -1,6 +1,7 @@
 services:
   api:
     build: ./api
+    image: humnafatima/api
     ports:
       - 8080:8080
     environment:
@@ -13,14 +14,16 @@ services:
 
   frontend:
     build: ./web
+    image: humnafatima/frontend
     expose:
       - 8000
     environment:
       - FLASK_SECRET_KEY=my_super_secret_custom_key_1
-      - JWT_SECRET_KEY=SG9wZWxpamsgZ2VicnVpa3QgZWVuIHN0dWRlbnQgZGl0IG9vaXQgbnV0dGlnLg==
+      - JWT_SECRET_KEY=SG9wZW54pamsgZ2VicnVpaHN0dWRlbnQgZG10IG9vaXQgbnV0dG1nZz09
 
   nginx:
     build: ./nginx
+    image: humnafatima/nginx
     ports:
       - 80:80
 
@@ -35,3 +38,5 @@ services:
 
 volumes:
   postgres:
+
+
