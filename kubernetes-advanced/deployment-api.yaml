@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      volumes:
+        - name: api-storage
+          persistentVolumeClaim:
+            claimName: pvc-database
+      containers:
+        - name: api-container
+          image: ghcr.io/nathansegers/kubernetes-storage-test
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          volumeMounts:
+            - mountPath: "/mnt/data/storage"
+              name: api-storage
